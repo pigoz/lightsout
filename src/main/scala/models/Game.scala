@@ -2,6 +2,7 @@ package lightsout.models
 
 class Game {
   private val matrix = Array.ofDim[Boolean](5,5)
+  private val transform = List((0,0), (-1,0), (1,0), (0,-1), (0,1))
 
   def isEmpty() = size == 0
   
@@ -17,15 +18,14 @@ class Game {
       tap(random.nextInt(6), random.nextInt(6))
   }
 
-  def tap (x: Int, y: Int) = {
-    negate(x, y)
-    negate(x-1, y)
-    negate(x+1, y)
-    negate(x, y-1)
-    negate(x, y+1)
+  def tap(x: Int, y: Int) = {
+    transform.foreach( l => {
+      val (tx, ty) = l
+      negate(x+tx, y+ty)
+    })
   }
   
-  def get (x: Int, y: Int) = matrix(x)(y)
+  def get(x: Int, y: Int) = matrix(x)(y)
 
   private def negate(x: Int, y: Int) = {
     if(x >= 0 && x < 5 && y >= 0 && y < 5)
