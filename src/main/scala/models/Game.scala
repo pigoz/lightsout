@@ -14,11 +14,13 @@ class Game {
 
   def start() = {
     val random = new scala.util.Random
-    while(isEmpty && random.nextInt() != 0)
-      tap(random.nextInt(6), random.nextInt(6))
+    while(isEmpty && random.nextInt(5) != 0)
+      tap(random.nextInt(5), random.nextInt(5))
   }
 
   def tap(x: Int, y: Int) = {
+    assert(x >= 0 && x < 5 && y >= 0 && y < 5, 
+           "("+ x +", "+ y +") invalid tap coordinates")
     transform.foreach( l => {
       val (tx, ty) = l
       negate(x+tx, y+ty)
