@@ -19,8 +19,7 @@ class Game {
   }
 
   def tap(x: Int, y: Int) = {
-    assert(x >= 0 && x < 5 && y >= 0 && y < 5, 
-           "("+ x +", "+ y +") invalid tap coordinates")
+    assert(validCoords(x, y), "("+ x +", "+ y +") invalid tap coordinates")
     transform.foreach( l => {
       val (tx, ty) = l
       negate(x+tx, y+ty)
@@ -30,9 +29,11 @@ class Game {
   def get(x: Int, y: Int) = matrix(x)(y)
 
   private def negate(x: Int, y: Int) = {
-    if(x >= 0 && x < 5 && y >= 0 && y < 5)
+    if(validCoords(x, y))
       matrix(x)(y) = !matrix(x)(y)
   }
+
+  private def validCoords(x: Int, y: Int) = x >= 0 && x < 5 && y >= 0 && y < 5
 
   override def toString = "[Game: matrix="+matrix.toString+"]"
 }
