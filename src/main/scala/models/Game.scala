@@ -3,9 +3,11 @@ package lightsout.models
 class Game {
   private val matrix = Array.ofDim[Boolean](5,5)
 
-  def isEmpty() = {
-    matrix.flatten.foldLeft(true){(r, n) =>
-      if(n) false else r
+  def isEmpty() = size == 0
+  
+  def size() = {
+    matrix.flatten.foldLeft(0){(r, n) =>
+      if(n) r+1 else r
     }
   }
 
@@ -22,6 +24,8 @@ class Game {
     negate(x, y-1)
     negate(x, y+1)
   }
+  
+  def get (x: Int, y: Int) = matrix(x)(y)
 
   private def negate(x: Int, y: Int) = {
     if(x >= 0 && x < 5 && y >= 0 && y < 5)
