@@ -2,7 +2,7 @@ package lightsout.test
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
-import lightsout.models.Game
+import lightsout.controllers.Game
 
 class GameSpec extends FunSuite with ShouldMatchers {
 
@@ -54,6 +54,7 @@ class GameSpec extends FunSuite with ShouldMatchers {
   }
 
   test("Game should not be empty after it started") {
+    game = new Game
     game.start()
     game should(not) be ('empty)
   }

@@ -1,4 +1,4 @@
-package lightsout.models
+package lightsout.controllers
 
 class Game {
   private val matrix = Array.ofDim[Boolean](5,5)
