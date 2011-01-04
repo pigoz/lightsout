@@ -1,6 +1,7 @@
 package lightsout.controllers
 
 import scala.swing.Publisher
+import lightsout.events.LightChanged
 
 class Game(N: Int) extends Publisher {
   private val matrix = Array.ofDim[Boolean](N,N)
@@ -26,10 +27,7 @@ class Game(N: Int) extends Publisher {
 
   def tap(x: Int, y: Int): Unit = {
     assert(validCoords(x, y), "("+ x +", "+ y +") invalid tap coordinates")
-    transform.foreach( l => {
-      val (tx, ty) = l
-      negate(x+tx, y+ty)
-    })
+    transform.foreach { case(tx, ty) => { negate(x+tx, y+ty) } }
   }
   
   def get(x: Int, y: Int) = matrix(x)(y)
@@ -37,7 +35,7 @@ class Game(N: Int) extends Publisher {
   private def negate(x: Int, y: Int) = {
     if(validCoords(x, y)){
       matrix(x)(y) = !matrix(x)(y)
-      publish(new lightsout.events.LightChanged(x, y, get(x, y)))
+      publish(new LightChanged(x, y, get(x, y)))
     }
   }
 
